@@ -14,12 +14,17 @@
     <div class="lewy1">
         <h3>Ryby zamieszkujące rzeki</h3>
         <ul>
-          <?php
-          $conn = mysqli_connect("localhost","root","","wedkowanie");
-
-          
-          mysqli_close($conn);
-          ?>
+        <?php
+        $conn = mysqli_connect("localhost","root","","wedkowanie");
+        $pytanie = "SELECT ryby.nazwa,lowisko.akwen,lowisko.wojewodztwo FROM lowisko,ryby WHERE lowisko.rodzaj = 3";
+        $kwerenda = mysqli_query($conn,$pytanie);
+        while($tablica = mysqli_fetch_row($kwerenda))
+        {        
+        
+        echo "<li>$tablica[0] plywa w rzece $tablica[1],$tablica[2]</li>";
+        }
+        mysqli_close($conn);
+        ?>
         </ul>
     </div>
     <div class="prawy">
@@ -35,11 +40,23 @@
                 <th>Gatunek</th>
                 <th>występowanie</th>
             </tr>
-            <tr>
-                <td>efekt1</td>
-                <td>efekt1</td>
-                <td>efekt1</td>
-            </tr>
+            <?php
+                $conn = mysqli_connect("localhost","root","","wedkowanie");
+                $pytanie = "SELECT id,nazwa,wystepowanie FROM ryby WHERE styl_zycia = 1";
+                $kwerenda = mysqli_query($conn,$pytanie);
+                $LP = 1;
+                while($tablica = mysqli_fetch_row($kwerenda))
+                {        
+                echo "<tr>";
+                echo "<td>$LP</td>";
+                echo "<td>$tablica[1]</td>";
+                echo "<td>$tablica[2]</td>";
+                echo "</tr>";
+                $LP++;
+                }
+                mysqli_close($conn);
+                ?>
+    
         </table>
     </div>
     <footer>Strone Wykonał:00000000000</footer>
